@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
                     child: Image.asset(
@@ -57,6 +57,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   heightSpacer(25),
+                  Text(
+                    "Email",
+                    style: AppTextTheme.kLabelStyle,
+                  ),
                   CustomTextField(
                     controller: email,
                     enabledBorder: OutlineInputBorder(
@@ -74,6 +78,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   heightSpacer(30),
+                  Text(
+                    "Password",
+                    style: AppTextTheme.kLabelStyle,
+                  ),
                   CustomTextField(
                     controller: password,
                     enabledBorder: OutlineInputBorder(
