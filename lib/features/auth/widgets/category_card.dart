@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hostel_management_system/common/spacing.dart';
 
 class CategoryCard extends StatelessWidget {
-  String category;
-  String image;
-  VoidCallback onTap;
-  CategoryCard({
+  final String category;
+  final String image;
+  final VoidCallback onTap;
+  const CategoryCard({
     super.key,
     required this.category,
     required this.image,
@@ -18,7 +18,7 @@ class CategoryCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(14),
+        padding: const EdgeInsets.all(14),
         decoration: const ShapeDecoration(
           color: Colors.white,
           shape: RoundedRectangleBorder(
@@ -49,7 +49,7 @@ class CategoryCard extends StatelessWidget {
               category,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Color(0xff333333),
+                color: const Color(0xff333333),
                 fontSize: 15.sp,
               ),
             ),

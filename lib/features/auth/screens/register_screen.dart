@@ -289,8 +289,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     buttonText: 'Register',
                     buttonColor: Colors.white,
                     onTap: () {
-                      print(selectedBlock);
-                      print(selectedRoom);
+                      // print(selectedBlock);
+                      // print(selectedRoom);
                       // if (_formkey.currentState!.validate()) {
 
                       // }

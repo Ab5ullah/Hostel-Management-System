@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hostel_management_system/common/constant.dart';
 import 'package:hostel_management_system/common/spacing.dart';
 import 'package:hostel_management_system/features/auth/widgets/category_card.dart';
+import 'package:hostel_management_system/student/screens/create_issue_screen.dart';
 import 'package:hostel_management_system/theme/text_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Punkaj Parihar",
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
-                            color: Color(0xff333333),
+                            color: const Color(0xff333333),
                             fontSize: 24.sp,
                           ),
                         ),
@@ -87,14 +88,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           "Room No. 101",
                           style: TextStyle(
-                            color: Color(0xff333333),
+                            color: const Color(0xff333333),
                             fontSize: 15.sp,
                           ),
                         ),
                         Text(
                           "Block No. A",
                           style: TextStyle(
-                            color: Color(0xff333333),
+                            color: const Color(0xff333333),
                             fontSize: 15.sp,
                           ),
                         ),
@@ -103,7 +104,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     widthSpacer(10),
                     Column(
                       children: [
-                        SvgPicture.asset(AppConstants.createIssue),
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const StudentCreateIssueScreen(),
+                                ),
+                              );
+                            },
+                            child: SvgPicture.asset(AppConstants.createIssue)),
                         Text(
                           "Create Issue",
                           style: TextStyle(
@@ -120,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
             heightSpacer(30),
             Container(
               width: double.maxFinite,
-              color: Color(0xff262eBb57),
+              color: const Color(0x262E8B57),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -131,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       "Categories",
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        color: Color(0xff333333),
+                        color: const Color(0xff333333),
                         fontSize: 19.sp,
                       ),
                     ),
