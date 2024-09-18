@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  heightSpacer(25),
+                  heightSpacer(20),
                   Text(
                     "Email",
                     style: AppTextTheme.kLabelStyle,
@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                   ),
-                  heightSpacer(30),
+                  heightSpacer(15),
                   Text(
                     "Password",
                     style: AppTextTheme.kLabelStyle,
@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     buttonColor: Colors.white,
                     onTap: () {
                       if (_formkey.currentState!.validate()) {
-                        print("validated!");
+                        //     print("validated!");
                       }
                     },
                     size: 16,

@@ -22,12 +22,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
+  String? selectedBlock;
+  String? selectedRoom;
+
+  List<String> blockOptions = ['A', 'B'];
+  List<String> roomOptionsA = ['101', '102', '103'];
+  List<String> roomOptionsB = ['201', '202', '203'];
 
   @override
   void dispose() {
     super.dispose();
     email.dispose();
     password.dispose();
+    username.dispose();
+    firstName.dispose();
+    lastName.dispose();
+    phoneNumber.dispose();
   }
 
   @override
@@ -131,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: AppTextTheme.kLabelStyle,
                   ),
                   CustomTextField(
-                    controller: firstName,
+                    controller: email,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),
                       borderSide: const BorderSide(
@@ -169,12 +179,117 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                   heightSpacer(15),
+                  Text(
+                    "Phone Number",
+                    style: AppTextTheme.kLabelStyle,
+                  ),
+                  CustomTextField(
+                    controller: phoneNumber,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      borderSide: const BorderSide(
+                        color: Color(0xffd1d8ff),
+                      ),
+                    ),
+                    inputHint: "Enter your Phone Number",
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Phone Number is required';
+                      }
+                      return null;
+                    },
+                  ),
+                  heightSpacer(15),
+                  Row(
+                    children: [
+                      Container(
+                        height: 50.h,
+                        decoration: ShapeDecoration(
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                              width: 1,
+                              color: Color(
+                                0xff2e8b57,
+                              ),
+                            ),
+                            borderRadius: BorderRadius.circular(14.r),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            widthSpacer(20),
+                            const Text("Block No."),
+                            widthSpacer(8),
+                            DropdownButton(
+                              value: selectedBlock,
+                              onChanged: (String? newValue) {
+                                setState(
+                                  () {
+                                    selectedBlock = newValue;
+                                    selectedRoom = null;
+                                  },
+                                );
+                              },
+                              items: blockOptions.map(
+                                (String block) {
+                                  return DropdownMenuItem(
+                                      value: block, child: Text(block));
+                                },
+                              ).toList(),
+                            ),
+                            widthSpacer(20),
+                          ],
+                        ),
+                      ),
+                      widthSpacer(20),
+                      Container(
+                        height: 50.h,
+                        decoration: ShapeDecoration(
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                              width: 1,
+                              color: Color(
+                                0xff2e8b57,
+                              ),
+                            ),
+                            borderRadius: BorderRadius.circular(14.r),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            widthSpacer(20),
+                            const Text("Room No."),
+                            widthSpacer(8),
+                            DropdownButton<String>(
+                              value: selectedRoom,
+                              onChanged: (String? newValue) {
+                                setState(
+                                  () {
+                                    selectedRoom = newValue;
+                                  },
+                                );
+                              },
+                              items: (selectedBlock == 'A'
+                                      ? roomOptionsA
+                                      : roomOptionsB)
+                                  .map((String room) {
+                                return DropdownMenuItem<String>(
+                                    value: room, child: Text(room));
+                              }).toList(),
+                            ),
+                            widthSpacer(20),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  heightSpacer(15),
                   CustomButton(
                     buttonText: 'Register',
                     buttonColor: Colors.white,
                     onTap: () {
                       if (_formkey.currentState!.validate()) {
-                        print("validated!");
+                        //           print("validated!");
                       }
                     },
                     size: 16,
