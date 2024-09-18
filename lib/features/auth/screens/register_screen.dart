@@ -4,6 +4,7 @@ import 'package:hostel_management_system/common/constant.dart';
 import 'package:hostel_management_system/common/custom_text_field.dart';
 import 'package:hostel_management_system/common/spacing.dart';
 import 'package:hostel_management_system/features/auth/widgets/custom_button.dart';
+import 'package:hostel_management_system/home/screen/home_screen.dart';
 import 'package:hostel_management_system/theme/colors.dart';
 import 'package:hostel_management_system/theme/text_theme.dart';
 
@@ -241,7 +242,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ],
                         ),
                       ),
-                      widthSpacer(20),
+                      widthSpacer(30),
                       Container(
                         height: 50.h,
                         decoration: ShapeDecoration(
@@ -288,9 +289,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     buttonText: 'Register',
                     buttonColor: Colors.white,
                     onTap: () {
-                      if (_formkey.currentState!.validate()) {
-                        //           print("validated!");
-                      }
+                      print(selectedBlock);
+                      print(selectedRoom);
+                      // if (_formkey.currentState!.validate()) {
+
+                      // }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomeScreen(),
+                        ),
+                      );
                     },
                     size: 16,
                   )

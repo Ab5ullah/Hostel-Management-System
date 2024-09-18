@@ -5,7 +5,7 @@ class AppConstants {
   static const bed = 'assets/bed.png';
   static const profile = 'assets/profile.svg';
   static const createIssue = 'assets/create_issue.svg';
-  static const roomAvailability = 'assets/room-availability.png';
+  static const roomAvailability = 'assets/room_availability.png';
   static const allIssues = 'assets/all_issues.png';
   static const createStaff = 'assets/create_staff.png';
   static const hostelFee = 'assets/hostel_fees.png';
