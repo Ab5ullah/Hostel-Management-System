@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Text("Didn't have an account? "),
                       InkWell(
                         onTap: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const RegisterScreen(),

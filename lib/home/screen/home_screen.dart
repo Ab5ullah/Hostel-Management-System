@@ -7,6 +7,8 @@ import 'package:hostel_management_system/features/admin/screens/create_staff.dar
 import 'package:hostel_management_system/features/admin/screens/staff_display_screen.dart';
 import 'package:hostel_management_system/features/auth/widgets/category_card.dart';
 import 'package:hostel_management_system/student/screens/create_issue_screen.dart';
+import 'package:hostel_management_system/student/screens/issue_screen.dart';
+import 'package:hostel_management_system/student/screens/room_availability.dart';
 import 'package:hostel_management_system/theme/text_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -155,12 +157,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       CategoryCard(
                         category: "Room\n Availability",
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const RoomAvailabilityScreen(),
+                            ),
+                          );
+                        },
                         image: AppConstants.roomAvailability,
                       ),
                       CategoryCard(
                         category: "All\n Issues",
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const IssueScreen(),
+                            ),
+                          );
+                        },
                         image: AppConstants.allIssues,
                       ),
                       CategoryCard(
