@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hostel_management_system/common/app_bar.dart';
+import 'package:hostel_management_system/common/custom_text_field.dart';
 import 'package:hostel_management_system/common/spacing.dart';
+import 'package:hostel_management_system/features/auth/widgets/custom_button.dart';
 import 'package:hostel_management_system/theme/text_theme.dart';
 
 class StudentCreateIssueScreen extends StatefulWidget {
@@ -12,42 +14,214 @@ class StudentCreateIssueScreen extends StatefulWidget {
 }
 
 class _CreateIssueScreenState extends State<StudentCreateIssueScreen> {
+  TextEditingController studentComment = TextEditingController();
+  String? selectedIssue;
+  List<String> issues = [
+    "Bathroom",
+    "Bedroom",
+    "Water",
+    "Furniturem",
+    "Kitchen",
+  ];
+  @override
+  void dispose() {
+    super.dispose();
+    studentComment.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context, "Create Issue"),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 15.w,
-          vertical: 10.h,
-        ),
-        child: Form(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              heightSpacer(15),
-              Text(
-                "Room Number",
-                style: AppTextTheme.kLabelStyle,
-              ),
-              Container(
-                padding: const EdgeInsets.all(12),
-                width: double.maxFinite,
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(
-                      width: 1,
-                      color: Color(0xff2e8b57),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 15.w,
+            vertical: 10.h,
+          ),
+          child: Form(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                heightSpacer(15),
+                Text(
+                  "Room Number",
+                  style: AppTextTheme.kLabelStyle,
+                ),
+                heightSpacer(15),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  width: double.maxFinite,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                        width: 1,
+                        color: Color(0xff2e8b57),
+                      ),
+                      borderRadius: BorderRadius.circular(14),
                     ),
-                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      "201",
+                      style: TextStyle(
+                        fontSize: 17.sp,
+                      ),
+                    ),
                   ),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Text("201"),
+                heightSpacer(15),
+                Text(
+                  "Block Number",
+                  style: AppTextTheme.kLabelStyle,
                 ),
-              )
-            ],
+                heightSpacer(15),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  width: double.maxFinite,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                        width: 1,
+                        color: Color(0xff2e8b57),
+                      ),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      "B",
+                      style: TextStyle(
+                        fontSize: 17.sp,
+                      ),
+                    ),
+                  ),
+                ),
+                heightSpacer(15),
+                Text(
+                  "Your Email Id",
+                  style: AppTextTheme.kLabelStyle,
+                ),
+                heightSpacer(15),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  width: double.maxFinite,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                        width: 1,
+                        color: Color(0xff2e8b57),
+                      ),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      "abc@gmail.com",
+                      style: TextStyle(
+                        fontSize: 17.sp,
+                      ),
+                    ),
+                  ),
+                ),
+                heightSpacer(15),
+                Text(
+                  "Phone Number",
+                  style: AppTextTheme.kLabelStyle,
+                ),
+                heightSpacer(15),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  width: double.maxFinite,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                        width: 1,
+                        color: Color(0xff2e8b57),
+                      ),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      "+9200000000",
+                      style: TextStyle(
+                        fontSize: 17.sp,
+                      ),
+                    ),
+                  ),
+                ),
+                heightSpacer(15),
+                Text(
+                  "Issue you are facing",
+                  style: AppTextTheme.kLabelStyle,
+                ),
+                heightSpacer(15),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                  ),
+                  width: double.maxFinite,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                        width: 1,
+                        color: Color(0xff2e8b57),
+                      ),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  child: DropdownButton(
+                      underline: const SizedBox(),
+                      isExpanded: true,
+                      value: selectedIssue,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedIssue = newValue;
+                        });
+                      },
+                      items: issues.map(
+                        (String issue) {
+                          return DropdownMenuItem(
+                            value: issue,
+                            child: Text(issue),
+                          );
+                        },
+                      ).toList()),
+                ),
+                heightSpacer(15),
+                Text(
+                  "Comment",
+                  style: AppTextTheme.kLabelStyle,
+                ),
+                heightSpacer(15),
+                CustomTextField(
+                  controller: studentComment,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Comment is required";
+                    }
+                    return null;
+                  },
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(14),
+                    borderSide: const BorderSide(
+                      color: Color(0xffd1d8ff),
+                    ),
+                  ),
+                ),
+                heightSpacer(40),
+                CustomButton(
+                  buttonText: "Submit",
+                  onTap: () {},
+                ),
+                heightSpacer(10),
+              ],
+            ),
           ),
         ),
       ),

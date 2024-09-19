@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hostel_management_system/common/constant.dart';
 import 'package:hostel_management_system/common/spacing.dart';
+import 'package:hostel_management_system/features/admin/screens/create_staff.dart';
+import 'package:hostel_management_system/features/admin/screens/staff_display_screen.dart';
 import 'package:hostel_management_system/features/auth/widgets/category_card.dart';
 import 'package:hostel_management_system/student/screens/create_issue_screen.dart';
 import 'package:hostel_management_system/theme/text_theme.dart';
@@ -71,13 +73,13 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Punkaj Parihar",
+                          "ndjasdsa",
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: const Color(0xff333333),
@@ -163,7 +165,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       CategoryCard(
                         category: "Staff\n Members",
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const StaffDisplayScreen(),
+                            ),
+                          );
+                        },
                         image: AppConstants.staffMember,
                       ),
                     ],
@@ -174,7 +183,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       CategoryCard(
                         category: "Create\n Staff",
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CreateStaffScreen(),
+                            ),
+                          );
+                        },
                         image: AppConstants.createStaff,
                       ),
                       CategoryCard(
