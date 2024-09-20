@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hostel_management_system/common/app_bar.dart';
-import 'package:hostel_management_system/common/constant.dart';
-import 'package:hostel_management_system/common/spacing.dart';
-import 'package:hostel_management_system/theme/text_theme.dart';
 
-class IssueScreen extends StatefulWidget {
-  const IssueScreen({super.key});
+import '../../../common/app_bar.dart';
+import '../../../common/constant.dart';
+import '../../../common/spacing.dart';
+import '../../../theme/text_theme.dart';
+
+class RoomChangeRequestScreen extends StatefulWidget {
+  const RoomChangeRequestScreen({super.key});
 
   @override
-  State<IssueScreen> createState() => _IssueScreenState();
+  State<RoomChangeRequestScreen> createState() =>
+      _RoomChangeRequestScreenState();
 }
 
-class _IssueScreenState extends State<IssueScreen> {
+class _RoomChangeRequestScreenState extends State<RoomChangeRequestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, "Students Issues"),
+      appBar: buildAppBar(context, "Room Change Requests"),
       body: ListView.builder(
           itemCount: 2,
           padding: const EdgeInsets.all(10),
           itemBuilder: (context, index) {
-            return const IssueCard();
+            return const RequestCard();
           }),
     );
   }
 }
 
-class IssueCard extends StatelessWidget {
-  const IssueCard({super.key});
+class RequestCard extends StatelessWidget {
+  const RequestCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,14 +82,21 @@ class IssueCard extends StatelessWidget {
                   children: [
                     heightSpacer(10),
                     Text(
-                      "Username: Kottla",
+                      "Username : Kottla",
                       style: TextStyle(
                         fontSize: 14.sp,
                       ),
                     ),
                     heightSpacer(10),
                     Text(
-                      "Room Number: 101",
+                      "Current Room: 102",
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                    heightSpacer(10),
+                    Text(
+                      "Current Block: B",
                       style: TextStyle(
                         fontSize: 14.sp,
                       ),
@@ -135,22 +144,36 @@ class IssueCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Issue: ",
+                                  "Asked For: ",
                                   style: AppTextTheme.kLabelStyle.copyWith(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                Text(
-                                  "Bathroom ",
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Block: A ",
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        color: Colors.pink,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    widthSpacer(20),
+                                    Text(
+                                      "Room No : 102",
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        color: Colors.pink,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -160,14 +183,14 @@ class IssueCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Student Comment: ",
+                                  "Reason: ",
                                   style: AppTextTheme.kLabelStyle.copyWith(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 Text(
-                                  "'Tap Leakage'",
+                                  "'Switches not working'",
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w400,
@@ -177,7 +200,7 @@ class IssueCard extends StatelessWidget {
                             ),
                             heightSpacer(20),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 InkWell(
                                   onTap: () {},
@@ -188,7 +211,7 @@ class IssueCard extends StatelessWidget {
                                     ),
                                     width: 140.w,
                                     decoration: BoxDecoration(
-                                      color: Colors.blue,
+                                      color: Color(0xffed6a77),
                                       borderRadius: BorderRadius.circular(12.r),
                                     ),
                                     child: Row(
@@ -198,7 +221,36 @@ class IssueCard extends StatelessWidget {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Resolved",
+                                          "Rejected",
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            color: Colors.white,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {},
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 8,
+                                    ),
+                                    width: 140.w,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xff2ecc71),
+                                      borderRadius: BorderRadius.circular(12.r),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Accepted",
                                           style: TextStyle(
                                             fontSize: 16.sp,
                                             color: Colors.white,

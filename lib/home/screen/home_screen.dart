@@ -4,9 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hostel_management_system/common/constant.dart';
 import 'package:hostel_management_system/common/spacing.dart';
 import 'package:hostel_management_system/features/admin/screens/create_staff.dart';
+import 'package:hostel_management_system/features/admin/screens/room_change_request_screen.dart';
 import 'package:hostel_management_system/features/admin/screens/staff_display_screen.dart';
 import 'package:hostel_management_system/features/auth/widgets/category_card.dart';
 import 'package:hostel_management_system/student/screens/create_issue_screen.dart';
+import 'package:hostel_management_system/student/screens/hostel_fee_screen.dart';
 import 'package:hostel_management_system/student/screens/issue_screen.dart';
 import 'package:hostel_management_system/student/screens/room_availability.dart';
 import 'package:hostel_management_system/theme/text_theme.dart';
@@ -212,12 +214,27 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       CategoryCard(
                         category: "Hostel\n Fee",
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HostelFeeScreen(),
+                            ),
+                          );
+                        },
                         image: AppConstants.hostelFee,
                       ),
                       CategoryCard(
                         category: "Change\n Requests",
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const RoomChangeRequestScreen(),
+                            ),
+                          );
+                        },
                         image: AppConstants.roomChange,
                       ),
                     ],

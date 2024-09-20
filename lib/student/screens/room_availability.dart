@@ -20,7 +20,7 @@ class _RoomAvailabilityScreenState extends State<RoomAvailabilityScreen> {
         children: [
           heightSpacer(20),
           ListView.builder(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               itemCount: 2,
               shrinkWrap: true,
               itemBuilder: (context, index) {
