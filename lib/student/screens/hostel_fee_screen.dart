@@ -30,7 +30,7 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
             decoration: ShapeDecoration(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
-                side: BorderSide(
+                side: const BorderSide(
                   width: 4,
                   color: Color(0xff2e8857),
                 ),
@@ -170,7 +170,7 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
                     ],
                   ),
                   heightSpacer(20),
-                  Divider(
+                  const Divider(
                     color: Colors.black,
                   ),
                   heightSpacer(20),

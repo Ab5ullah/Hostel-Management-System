@@ -34,6 +34,7 @@ class RequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: sized_box_for_whitespace
     return Container(
       width: double.maxFinite,
       child: Column(
@@ -211,7 +212,7 @@ class RequestCard extends StatelessWidget {
                                     ),
                                     width: 140.w,
                                     decoration: BoxDecoration(
-                                      color: Color(0xffed6a77),
+                                      color: const Color(0xffed6a77),
                                       borderRadius: BorderRadius.circular(12.r),
                                     ),
                                     child: Row(
@@ -240,7 +241,7 @@ class RequestCard extends StatelessWidget {
                                     ),
                                     width: 140.w,
                                     decoration: BoxDecoration(
-                                      color: Color(0xff2ecc71),
+                                      color: const Color(0xff2ecc71),
                                       borderRadius: BorderRadius.circular(12.r),
                                     ),
                                     child: Row(

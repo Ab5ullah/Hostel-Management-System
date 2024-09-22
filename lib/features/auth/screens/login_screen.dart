@@ -21,9 +21,9 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController password = TextEditingController();
   @override
   void dispose() {
-    super.dispose();
     email.dispose();
     password.dispose();
+    super.dispose();
   }
 
   @override
