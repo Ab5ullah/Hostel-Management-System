@@ -4,7 +4,7 @@ import 'package:hostel_management_system/common/app_bar.dart';
 import 'package:hostel_management_system/features/auth/widgets/custom_button.dart';
 import 'package:hostel_management_system/theme/text_theme.dart';
 
-import '../../../common/custom_text_field.dart';
+import '../../auth/widgets/custom_text_field.dart';
 import '../../../common/spacing.dart';
 
 class CreateStaffScreen extends StatefulWidget {

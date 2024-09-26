@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hostel_management_system/common/constant.dart';
-import 'package:hostel_management_system/common/custom_text_field.dart';
+import 'package:hostel_management_system/features/auth/widgets/custom_text_field.dart';
 import 'package:hostel_management_system/common/spacing.dart';
 import 'package:hostel_management_system/features/auth/widgets/custom_button.dart';
-import 'package:hostel_management_system/home/screen/home_screen.dart';
+import 'package:hostel_management_system/features/home/screen/home_screen.dart';
 import 'package:hostel_management_system/theme/colors.dart';
 import 'package:hostel_management_system/theme/text_theme.dart';
 

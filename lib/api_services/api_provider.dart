@@ -18,7 +18,7 @@ class ApiProvider extends ChangeNotifier {
   }) async {
     final Uri uri = Uri.parse("$baseUrl$endpoint");
     final Map<String, String>? headers = {
-      'Content-Type': 'app;ication/json',
+      'Content-Type': 'application/json',
     };
     final String jsonBody = body != null ? json.encode(body) : '';
     final response =

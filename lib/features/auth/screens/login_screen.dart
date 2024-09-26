@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hostel_management_system/api_services/api_calls.dart';
 import 'package:hostel_management_system/common/constant.dart';
-import 'package:hostel_management_system/common/custom_text_field.dart';
+import 'package:hostel_management_system/features/auth/widgets/custom_text_field.dart';
 import 'package:hostel_management_system/common/spacing.dart';
 import 'package:hostel_management_system/features/auth/screens/register_screen.dart';
 import 'package:hostel_management_system/features/auth/widgets/custom_button.dart';
@@ -19,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  ApiCalls apiCalls = ApiCalls();
   @override
   void dispose() {
     email.dispose();
@@ -105,6 +107,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     onTap: () {
                       if (_formkey.currentState!.validate()) {
                         //     print("validated!");
+                        apiCalls.handleLogin(
+                            context, email.text, password.text);
                       }
                     },
                     size: 16,

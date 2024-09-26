@@ -6,11 +6,12 @@ import 'package:hostel_management_system/common/spacing.dart';
 import 'package:hostel_management_system/features/admin/screens/create_staff.dart';
 import 'package:hostel_management_system/features/admin/screens/room_change_request_screen.dart';
 import 'package:hostel_management_system/features/admin/screens/staff_display_screen.dart';
-import 'package:hostel_management_system/features/auth/widgets/category_card.dart';
-import 'package:hostel_management_system/student/screens/create_issue_screen.dart';
-import 'package:hostel_management_system/student/screens/hostel_fee_screen.dart';
-import 'package:hostel_management_system/student/screens/issue_screen.dart';
-import 'package:hostel_management_system/student/screens/room_availability.dart';
+import 'package:hostel_management_system/features/student/screens/profile_screen.dart';
+import 'package:hostel_management_system/widgets/category_card.dart';
+import 'package:hostel_management_system/features/student/screens/create_issue_screen.dart';
+import 'package:hostel_management_system/features/student/screens/hostel_fee_screen.dart';
+import 'package:hostel_management_system/features/student/screens/issue_screen.dart';
+import 'package:hostel_management_system/features/student/screens/room_availability.dart';
 import 'package:hostel_management_system/theme/text_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,7 +31,14 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: EdgeInsets.only(right: 15.w),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
               child: SvgPicture.asset(AppConstants.profile),
             ),
           ),

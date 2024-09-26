@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hostel_management_system/common/my_form_field.dart';
+import 'package:hostel_management_system/features/auth/widgets/my_form_field.dart';
 
-import '../theme/colors.dart';
-import '../theme/text_theme.dart';
+import '../../../theme/colors.dart';
+import '../../../theme/text_theme.dart';
 
 class CustomTextField extends StatelessWidget {
   final int? maxLines, minLines;
