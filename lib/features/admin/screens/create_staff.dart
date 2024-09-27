@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hostel_management_system/api_services/api_calls.dart';
 import 'package:hostel_management_system/common/app_bar.dart';
 import 'package:hostel_management_system/features/auth/widgets/custom_button.dart';
 import 'package:hostel_management_system/theme/text_theme.dart';
@@ -23,6 +24,8 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
   TextEditingController lastName = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController jobRole = TextEditingController();
+  ApiCalls apiCalls = ApiCalls();
+  final emailRegex = RegExp(r'^[\w-]+(.[\w-]+)@[\w-]+(.[\w-]+)(.[a-z]{2,})$');
 
   @override
   void dispose() {
@@ -136,6 +139,29 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                   ),
                   heightSpacer(15),
                   Text(
+                    "Email",
+                    style: AppTextTheme.kLabelStyle,
+                  ),
+                  CustomTextField(
+                    controller: email,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      borderSide: const BorderSide(
+                        color: Color(0xffd1d8ff),
+                      ),
+                    ),
+                    inputHint: "Enter your Email",
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Email is required';
+                      } else if (!emailRegex.hasMatch(value)) {
+                        return 'Email is invalid';
+                      }
+                      return null;
+                    },
+                  ),
+                  heightSpacer(15),
+                  Text(
                     "Password",
                     style: AppTextTheme.kLabelStyle,
                   ),
@@ -169,7 +195,7 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                         color: Color(0xffd1d8ff),
                       ),
                     ),
-                    inputHint: "Enter your ",
+                    inputHint: "Enter your Phone Number",
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Phone Number is required';
@@ -181,7 +207,18 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                   CustomButton(
                       buttonText: "Create Staff",
                       onTap: () {
-                        if (_formkey.currentState!.validate()) {}
+                        if (_formkey.currentState!.validate()) {
+                          apiCalls.createStaff(
+                            context,
+                            username.text,
+                            firstName.text,
+                            lastName.text,
+                            email.text,
+                            password.text,
+                            phoneNumber.text,
+                            jobRole.text,
+                          );
+                        }
                       })
                 ],
               )),

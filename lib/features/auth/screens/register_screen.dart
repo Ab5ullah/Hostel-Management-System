@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hostel_management_system/api_services/api_calls.dart';
 import 'package:hostel_management_system/common/constant.dart';
 import 'package:hostel_management_system/features/auth/widgets/custom_text_field.dart';
 import 'package:hostel_management_system/common/spacing.dart';
 import 'package:hostel_management_system/features/auth/widgets/custom_button.dart';
-import 'package:hostel_management_system/features/home/screen/home_screen.dart';
 import 'package:hostel_management_system/theme/colors.dart';
 import 'package:hostel_management_system/theme/text_theme.dart';
 
@@ -23,8 +23,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
+  final emailRegex = RegExp(r'^[\w-]+(.[\w-]+)@[\w-]+(.[\w-]+)(.[a-z]{2,})$');
   String? selectedBlock;
   String? selectedRoom;
+  ApiCalls apiCalls = ApiCalls();
 
   List<String> blockOptions = ['A', 'B'];
   List<String> roomOptionsA = ['101', '102', '103'];
@@ -195,7 +197,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     inputHint: "Enter your Phone Number",
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Phone Number is required';
+                        return 'Email is required';
+                      } else if (!emailRegex.hasMatch(value)) {
+                        return 'Email is invalid';
                       }
                       return null;
                     },
@@ -291,15 +295,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onTap: () {
                       // print(selectedBlock);
                       // print(selectedRoom);
-                      // if (_formkey.currentState!.validate()) {
-
-                      // }
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomeScreen(),
-                        ),
-                      );
+                      if (_formkey.currentState!.validate()) {
+                        apiCalls.resgisterStudent(
+                            context,
+                            username.text,
+                            firstName.text,
+                            lastName.text,
+                            email.text,
+                            password.text,
+                            phoneNumber.text,
+                            selectedBlock ?? "",
+                            selectedRoom ?? "");
+                      }
                     },
                     size: 16,
                   )

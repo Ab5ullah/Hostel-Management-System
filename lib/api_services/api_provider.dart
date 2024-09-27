@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_nullable_for_final_variable_declarations, avoid_print
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';

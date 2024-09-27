@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hostel_management_system/api_services/api_utils.dart';
 import 'package:hostel_management_system/common/app_bar.dart';
 import 'package:hostel_management_system/features/auth/widgets/custom_text_field.dart';
 import 'package:hostel_management_system/common/spacing.dart';
@@ -64,7 +65,7 @@ class _CreateIssueScreenState extends State<StudentCreateIssueScreen> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
-                      "201",
+                      ApiUtils.roomNumber,
                       style: TextStyle(
                         fontSize: 17.sp,
                       ),
@@ -92,7 +93,7 @@ class _CreateIssueScreenState extends State<StudentCreateIssueScreen> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
-                      "B",
+                      ApiUtils.blockNumber,
                       style: TextStyle(
                         fontSize: 17.sp,
                       ),
@@ -120,7 +121,7 @@ class _CreateIssueScreenState extends State<StudentCreateIssueScreen> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
-                      "abc@gmail.com",
+                      ApiUtils.email,
                       style: TextStyle(
                         fontSize: 17.sp,
                       ),
@@ -148,7 +149,7 @@ class _CreateIssueScreenState extends State<StudentCreateIssueScreen> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
-                      "+9200000000",
+                      ApiUtils.phoneNumber,
                       style: TextStyle(
                         fontSize: 17.sp,
                       ),
