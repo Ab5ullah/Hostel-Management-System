@@ -85,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: AppTextTheme.kLabelStyle,
                   ),
                   CustomTextField(
+                    obscureText: true,
                     controller: password,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),

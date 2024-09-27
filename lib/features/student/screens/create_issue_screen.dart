@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hostel_management_system/api_services/api_calls.dart';
 import 'package:hostel_management_system/api_services/api_utils.dart';
 import 'package:hostel_management_system/common/app_bar.dart';
 import 'package:hostel_management_system/features/auth/widgets/custom_text_field.dart';
@@ -16,6 +17,7 @@ class StudentCreateIssueScreen extends StatefulWidget {
 
 class _CreateIssueScreenState extends State<StudentCreateIssueScreen> {
   TextEditingController studentComment = TextEditingController();
+  ApiCalls apiCalls = ApiCalls();
   String? selectedIssue;
   List<String> issues = [
     "Bathroom",
@@ -218,7 +220,17 @@ class _CreateIssueScreenState extends State<StudentCreateIssueScreen> {
                 heightSpacer(40),
                 CustomButton(
                   buttonText: "Submit",
-                  onTap: () {},
+                  onTap: () {
+                    apiCalls.createIssue(
+                      context,
+                      ApiUtils.roomNumber,
+                      ApiUtils.blockNumber,
+                      ApiUtils.email,
+                      selectedIssue ?? "",
+                      ApiUtils.phoneNumber,
+                      studentComment.text,
+                    );
+                  },
                 ),
                 heightSpacer(10),
               ],

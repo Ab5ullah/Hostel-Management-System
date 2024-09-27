@@ -153,4 +153,44 @@ class ApiCalls {
     }
     return null;
   }
+
+  Future<String?> createIssue(
+    BuildContext context,
+    String roomNumber,
+    String blockNumber,
+    String email,
+    String issue,
+    String phoneNumber,
+    String comment,
+  ) async {
+    final apiProvider = Provider.of<ApiProvider>(context, listen: false);
+
+    final Map<String, dynamic> requestData = {
+      "roomNumber": roomNumber,
+      "block": blockNumber,
+      "issue": issue,
+      "studentComment": comment,
+      "studentEmailId": email,
+    };
+    final response = await apiProvider.postResponse(
+      ApiUtils.createIssue,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: requestData,
+    );
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseBody = json.decode(response.body);
+      if (responseBody['statusCode'] == 200) {
+        ApiUtils.showSuccessSnackbar(context, responseBody['status']);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+        );
+      }
+    }
+    return null;
+  }
 }
