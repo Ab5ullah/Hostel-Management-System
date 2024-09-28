@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,12 +10,16 @@ import 'package:hostel_management_system/features/admin/screens/create_staff.dar
 import 'package:hostel_management_system/features/admin/screens/room_change_request_screen.dart';
 import 'package:hostel_management_system/features/admin/screens/staff_display_screen.dart';
 import 'package:hostel_management_system/features/student/screens/profile_screen.dart';
+import 'package:hostel_management_system/models/student_info_model.dart';
 import 'package:hostel_management_system/widgets/category_card.dart';
 import 'package:hostel_management_system/features/student/screens/create_issue_screen.dart';
 import 'package:hostel_management_system/features/student/screens/hostel_fee_screen.dart';
 import 'package:hostel_management_system/features/student/screens/issue_screen.dart';
 import 'package:hostel_management_system/features/student/screens/room_availability.dart';
 import 'package:hostel_management_system/theme/text_theme.dart';
+import 'package:provider/provider.dart';
+
+import '../../../api_services/api_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,6 +29,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  StudentInfoModel? studentInfoModel;
+  Future<void> fetchStudentData(String emailId) async {
+    try {
+      final apiProvider = Provider.of<ApiProvider>(context, listen: false);
+      final studentinfo =
+          await apiProvider.getResponse('${ApiUtils.studentInfo}$emailId');
+
+      if (studentinfo.statusCode == 200) {
+        final Map<String, dynamic> room = json.decode(studentinfo.body);
+        print(studentinfo.body);
+
+        studentInfoModel = StudentInfoModel.fromJson(room);
+      } else {
+        print('Failed to fetch data');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchStudentData(ApiUtils.email);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -229,10 +261,31 @@ class _HomeScreenState extends State<HomeScreen> {
                       CategoryCard(
                         category: "Hostel\n Fee",
                         onTap: () {
+                          final student = studentInfoModel!.result.first;
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const HostelFeeScreen(),
+                              builder: (context) => HostelFeeScreen(
+                                blockNumber:
+                                    student.studentProfileData.block.toString(),
+                                roomNumber: student
+                                    .studentProfileData.roomNumber
+                                    .toString(),
+                                maintainanceCharge: student
+                                    .roomChargesModel.maintenanceCharges
+                                    .toString(),
+                                parkingCharge: student
+                                    .roomChargesModel.parkingCharges
+                                    .toString(),
+                                waterCharge: student
+                                    .roomChargesModel.roomWaterCharges
+                                    .toString(),
+                                roomCharge: student.roomChargesModel.roomAmount
+                                    .toString(),
+                                totalCharge: student
+                                    .roomChargesModel.totalAmount
+                                    .toString(),
+                              ),
                             ),
                           );
                         },

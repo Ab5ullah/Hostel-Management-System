@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +8,23 @@ import 'package:hostel_management_system/common/constant.dart';
 import 'package:hostel_management_system/common/spacing.dart';
 
 class HostelFeeScreen extends StatefulWidget {
-  const HostelFeeScreen({super.key});
+  String blockNumber;
+  String roomNumber;
+  String maintainanceCharge;
+  String parkingCharge;
+  String waterCharge;
+  String roomCharge;
+  String totalCharge;
+  HostelFeeScreen({
+    super.key,
+    required this.blockNumber,
+    required this.roomNumber,
+    required this.maintainanceCharge,
+    required this.parkingCharge,
+    required this.waterCharge,
+    required this.roomCharge,
+    required this.totalCharge,
+  });
 
   @override
   State<HostelFeeScreen> createState() => _HostelFeeScreenState();
@@ -64,7 +82,7 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
                             ),
                           ),
                           Text(
-                            "B",
+                            widget.blockNumber,
                             style: TextStyle(
                               fontSize: 16.sp,
                             ),
@@ -80,7 +98,7 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
                             ),
                           ),
                           Text(
-                            "101",
+                            widget.roomNumber,
                             style: TextStyle(
                               fontSize: 16.sp,
                             ),
@@ -108,7 +126,7 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
                         ),
                       ),
                       Text(
-                        "\$0000",
+                        "\$${widget.maintainanceCharge}",
                         style: TextStyle(
                           fontSize: 16.sp,
                         ),
@@ -126,7 +144,7 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
                         ),
                       ),
                       Text(
-                        "\$0000",
+                        "\$${widget.parkingCharge}",
                         style: TextStyle(
                           fontSize: 16.sp,
                         ),
@@ -144,7 +162,7 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
                         ),
                       ),
                       Text(
-                        "\$0000",
+                        "\$${widget.waterCharge}",
                         style: TextStyle(
                           fontSize: 16.sp,
                         ),
@@ -162,7 +180,7 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
                         ),
                       ),
                       Text(
-                        "\$0000",
+                        "\$${widget.roomCharge}",
                         style: TextStyle(
                           fontSize: 16.sp,
                         ),
@@ -184,7 +202,7 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
                         ),
                       ),
                       Text(
-                        "\$0000",
+                        "\$${widget.totalCharge}",
                         style: TextStyle(
                           fontSize: 16.sp,
                         ),

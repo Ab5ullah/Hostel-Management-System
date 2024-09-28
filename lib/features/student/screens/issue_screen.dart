@@ -200,6 +200,7 @@ class IssueCard extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
+                                  // ignore: unnecessary_string_interpolations
                                   "${issue.issue}",
                                   style: TextStyle(
                                     fontSize: 16.sp,

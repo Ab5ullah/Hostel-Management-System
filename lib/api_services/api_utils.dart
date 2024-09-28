@@ -8,6 +8,8 @@ class ApiUtils {
   static String createIssue = "/maintenance/createIssue";
   static String roomAvailability = "/room/getRooms/AVAILABLE";
   static String studentIssues = "/maintenance/fetch/issue/OPEN";
+  static String staffInfo = "/admin/fetch/allStaff";
+  static String studentInfo = "/student/getStudentDetails?studentEmailId=";
 
 //user info
   static String email = '';
