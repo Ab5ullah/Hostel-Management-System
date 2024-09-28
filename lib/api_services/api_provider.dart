@@ -41,4 +41,17 @@ class ApiProvider extends ChangeNotifier {
     print("Requesttt: ${response.body}");
     return response;
   }
+
+  Future<http.Response> deleteResponse(
+    String endpoint, {
+    Map<String, String>? headers,
+  }) async {
+    final Uri uri = Uri.parse("$baseUrl$endpoint");
+    final Map<String, String>? headers = {
+      'Content-Type': 'application/json',
+    };
+    final response = await httpClient.delete(uri, headers: headers);
+    print("Requesttt: ${response.body}");
+    return response;
+  }
 }

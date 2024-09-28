@@ -7,10 +7,15 @@ class ApiUtils {
   static String createStaff = "/admin/create/staff";
   static String createIssue = "/maintenance/createIssue";
   static String roomAvailability = "/room/getRooms/AVAILABLE";
+  static String roomChangeRequest = "/room/change/request";
   static String studentIssues = "/maintenance/fetch/issue/OPEN";
   static String staffInfo = "/admin/fetch/allStaff";
+  static String deletestaff = "/admin/delete/staff/";
   static String studentInfo = "/student/getStudentDetails?studentEmailId=";
   static String studentRoomChangeReq = "/room/fetch/roomChange/requests";
+  static String acceptOrReject = "/admin/approveOrReject";
+  static String closeAnIssue = "/maintenance/close/issue/";
+  static String updateProfile = "/student/updateStudent/";
 
 //user info
   static String email = '';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hostel_management_system/api_services/api_calls.dart';
 import 'package:hostel_management_system/api_services/api_utils.dart';
 import 'package:hostel_management_system/common/constant.dart';
 import 'package:hostel_management_system/common/spacing.dart';
@@ -22,6 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController username = TextEditingController();
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
+  ApiCalls apiCalls = ApiCalls();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -218,7 +220,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                     heightSpacer(30),
-                    CustomButton(buttonText: "Save", onTap: () {})
+                    CustomButton(
+                        buttonText: "Save",
+                        onTap: () {
+                          apiCalls.updateProfile(
+                            context,
+                            username.text,
+                            firstName.text,
+                            lastName.text,
+                            phoneNumber.text,
+                          );
+                        })
                   ],
                 ),
               ),

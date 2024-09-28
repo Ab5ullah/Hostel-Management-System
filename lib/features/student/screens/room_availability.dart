@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hostel_management_system/api_services/api_utils.dart';
-import 'package:hostel_management_system/features/student/screens/change_room_req.dart';
+import 'package:hostel_management_system/features/student/screens/change_room_screen.dart';
 import 'package:hostel_management_system/models/room_availability_model.dart';
 import 'package:provider/provider.dart';
 

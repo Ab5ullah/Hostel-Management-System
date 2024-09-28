@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hostel_management_system/api_services/api_calls.dart';
 import 'package:hostel_management_system/common/app_bar.dart';
 import 'package:hostel_management_system/common/constant.dart';
 import 'package:hostel_management_system/common/spacing.dart';
@@ -21,7 +22,7 @@ class StaffDisplayScreen extends StatefulWidget {
 
 class _StaffDisplayScreenState extends State<StaffDisplayScreen> {
   StaffInfoModel? staffInfoModel;
-
+  ApiCalls apiCalls = ApiCalls();
   Future<void> fetchAllStaff() async {
     try {
       final apiProvider = Provider.of<ApiProvider>(context, listen: false);
@@ -143,7 +144,10 @@ class _StaffDisplayScreenState extends State<StaffDisplayScreen> {
                                       ),
                                     ),
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        apiCalls.deleteStaff(
+                                            context, staff.emailId);
+                                      },
                                       child: Container(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 10,

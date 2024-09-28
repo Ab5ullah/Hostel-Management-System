@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hostel_management_system/api_services/api_calls.dart';
 import 'package:provider/provider.dart';
 import '../../../api_services/api_provider.dart';
 import '../../../api_services/api_utils.dart';
@@ -86,6 +87,7 @@ class RequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ApiCalls apiCalls = ApiCalls();
     // ignore: sized_box_for_whitespace
     return Container(
       width: double.maxFinite,
@@ -256,7 +258,14 @@ class RequestCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    apiCalls.approveOrRejectRequest(
+                                      context,
+                                      requests.roomChangeRequestId,
+                                      "REJECTED",
+                                      "REJECTED",
+                                    );
+                                  },
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 10,
@@ -285,7 +294,14 @@ class RequestCard extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    apiCalls.approveOrRejectRequest(
+                                      context,
+                                      requests.roomChangeRequestId,
+                                      "APPROVED",
+                                      "APPROVED",
+                                    );
+                                  },
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 10,
