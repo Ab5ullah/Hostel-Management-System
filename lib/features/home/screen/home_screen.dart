@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hostel_management_system/api_services/api_utils.dart';
 import 'package:hostel_management_system/common/constant.dart';
 import 'package:hostel_management_system/common/spacing.dart';
 import 'package:hostel_management_system/features/admin/screens/create_staff.dart';
@@ -90,24 +91,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "ndjasdsa",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xff333333),
-                            fontSize: 24.sp,
+                        SizedBox(
+                          width: 200.w,
+                          child: Text(
+                            "${ApiUtils.firstName} ${ApiUtils.lastName}",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xff333333),
+                              fontSize: 24.sp,
+                            ),
                           ),
                         ),
                         heightSpacer(15),
                         Text(
-                          "Room No. 101",
+                          "Room No. ${ApiUtils.roomNumber}",
                           style: TextStyle(
                             color: const Color(0xff333333),
                             fontSize: 15.sp,
                           ),
                         ),
                         Text(
-                          "Block No. A",
+                          "Block No. ${ApiUtils.blockNumber}",
                           style: TextStyle(
                             color: const Color(0xff333333),
                             fontSize: 15.sp,

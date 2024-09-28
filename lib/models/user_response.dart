@@ -35,7 +35,7 @@ class UserResponse {
 }
 
 class Result {
-  String userName;
+  String? userName;
   String? emailId;
   RoleId? roleId;
   String? firstName;

@@ -220,8 +220,8 @@ class _CreateIssueScreenState extends State<StudentCreateIssueScreen> {
                 heightSpacer(40),
                 CustomButton(
                   buttonText: "Submit",
-                  onTap: () {
-                    apiCalls.createIssue(
+                  onTap: () async {
+                    await apiCalls.createAnIssue(
                       context,
                       ApiUtils.roomNumber,
                       ApiUtils.blockNumber,

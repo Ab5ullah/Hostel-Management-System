@@ -6,6 +6,9 @@ class ApiUtils {
   static String resgister = "/student/saveStudent";
   static String createStaff = "/admin/create/staff";
   static String createIssue = "/maintenance/createIssue";
+  static String roomAvailability = "/room/getRooms/AVAILABLE";
+  static String studentIssues = "/maintenance/fetch/issue/OPEN";
+
 //user info
   static String email = '';
   static String roomNumber = '';

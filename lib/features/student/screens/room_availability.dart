@@ -1,8 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hostel_management_system/common/app_bar.dart';
-import 'package:hostel_management_system/common/constant.dart';
-import 'package:hostel_management_system/common/spacing.dart';
+import 'package:hostel_management_system/api_services/api_utils.dart';
+import 'package:hostel_management_system/models/room_availability_model.dart';
+import 'package:provider/provider.dart';
+
+import '../../../api_services/api_provider.dart';
+import '../../../common/app_bar.dart';
+import '../../../common/constant.dart';
+import '../../../common/spacing.dart';
 
 class RoomAvailabilityScreen extends StatefulWidget {
   const RoomAvailabilityScreen({super.key});
@@ -12,46 +19,93 @@ class RoomAvailabilityScreen extends StatefulWidget {
 }
 
 class _RoomAvailabilityScreenState extends State<RoomAvailabilityScreen> {
+  RoomAvailabilityModel? roomAvailabile;
+
+  Future<void> fetchRoomAvailability() async {
+    try {
+      final apiProvider = Provider.of<ApiProvider>(context, listen: false);
+      final roomAvailability =
+          await apiProvider.getResponse(ApiUtils.roomAvailability);
+
+      if (roomAvailability.statusCode == 200) {
+        final Map<String, dynamic> room = json.decode(roomAvailability.body);
+        print(roomAvailability.body);
+
+        roomAvailabile = RoomAvailabilityModel.fromJson(room);
+      } else {
+        print('Failed to fetch data');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, "Room Availability"),
-      body: Column(
-        children: [
-          heightSpacer(20),
-          ListView.builder(
-              padding: const EdgeInsets.all(10),
-              itemCount: 2,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.h),
-                  child: const RoomCard(),
-                );
-              }),
-        ],
+      appBar: buildAppBar(context, 'Room Availabilities'),
+      body: FutureBuilder(
+        future: fetchRoomAvailability(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            return roomAvailabile == null
+                ? const Center(
+                    child: Text(
+                      "No Availability",
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: roomAvailabile!.result.length,
+                      itemBuilder: (context, index) {
+                        final room = roomAvailabile!.result[index];
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.h),
+                          child: RoomCard(room: room),
+                        );
+                      },
+                    ),
+                  );
+          }
+        },
       ),
     );
   }
 }
 
 class RoomCard extends StatelessWidget {
-  const RoomCard({super.key});
+  final Result room;
+
+  const RoomCard({super.key, required this.room});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30.r),
-          topRight: Radius.circular(30.r),
-          bottomLeft: Radius.circular(30.r),
+      padding: const EdgeInsets.all(16.0),
+      decoration: ShapeDecoration(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(width: 2, color: Color(0xFF007B3B)),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30.r),
+            topRight: Radius.circular(30.r),
+            bottomLeft: Radius.circular(30.r),
+          ),
         ),
-        border: Border.all(
-          color: const Color(0xff007b3b),
-          width: 2,
-        ),
+        shadows: const [
+          BoxShadow(
+            color: Color(0x4C007B3B),
+            blurRadius: 8,
+            offset: Offset(1, 4),
+            spreadRadius: 0,
+          )
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -63,9 +117,14 @@ class RoomCard extends StatelessWidget {
                 height: 70.h,
                 width: 70.w,
               ),
-              const Text(
-                "Room No. 102",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Text(
+                'Room no. - ${room.roomNumber}',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: const Color(0xFF333333),
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w700,
+                ),
               )
             ],
           ),
@@ -74,57 +133,93 @@ class RoomCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Block ",
-                style: TextStyle(fontSize: 16.sp),
+                'Block ${room.blockId.block}',
+                style: TextStyle(
+                  color: const Color(0xFF333333),
+                  fontSize: 16.sp,
+                ),
               ),
               heightSpacer(5),
               Text(
-                "Capacity ",
-                style: TextStyle(fontSize: 16.sp),
+                'Capacity: ${room.roomCapacity}',
+                style: TextStyle(
+                  color: const Color(0xFF333333),
+                  fontSize: 16.sp,
+                ),
               ),
               heightSpacer(5),
               Text(
-                "Current Capacity ",
-                style: TextStyle(fontSize: 16.sp),
+                'Current Capacity: ${room.roomCurrentCapacity}',
+                style: TextStyle(
+                  color: const Color(0xFF333333),
+                  fontSize: 16.sp,
+                ),
               ),
               heightSpacer(5),
-              Text(
-                "Room Type",
-                style: TextStyle(fontSize: 16.sp),
-              ),
+              if (room.roomType != null)
+                Text(
+                  'Type: ${room.roomType!.roomType}',
+                  style: TextStyle(
+                    color: const Color(0xFF333333),
+                    fontSize: 16.sp,
+                  ),
+                ),
               heightSpacer(5),
               Row(
                 children: [
                   Text(
-                    "Status",
-                    style: TextStyle(fontSize: 16.sp),
+                    'Status: ',
+                    style: TextStyle(
+                      color: const Color(0xFF333333),
+                      fontSize: 16.sp,
+                    ),
                   ),
-                  widthSpacer(10),
                   Container(
-                    padding: const EdgeInsets.only(
-                      left: 5,
-                      right: 5,
-                      bottom: 5,
-                      top: 2,
-                    ),
                     height: 30.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color(0xff2ecc71),
+                    padding: const EdgeInsets.only(
+                        left: 5, right: 5, top: 5, bottom: 5),
+                    decoration: ShapeDecoration(
+                      color: room.roomCurrentCapacity == 5
+                          ? Colors.amber
+                          : const Color(0xFF2ECC71),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      shadows: const [
+                        BoxShadow(
+                          color: Color(0x3F000000),
+                          blurRadius: 8,
+                          offset: Offset(1, 3),
+                          spreadRadius: 0,
+                        ),
+                      ],
                     ),
-                    child: Text(
-                      textAlign: TextAlign.center,
-                      "Available",
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
+                    child: room.roomCurrentCapacity == 5
+                        ? Text(
+                            'Unavailable',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          )
+                        : InkWell(
+                            onTap: () {},
+                            child: Text(
+                              'Available',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                  ),
                 ],
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

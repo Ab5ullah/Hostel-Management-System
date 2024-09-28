@@ -37,8 +37,8 @@ class ApiCalls {
       ApiUtils.email = userResponse.result[0].emailId!;
       ApiUtils.phoneNumber = userResponse.result[0].phoneNumber!.toString();
       ApiUtils.roomNumber = userResponse.result[0].roomNumber!.toString();
-      ApiUtils.username = userResponse.result[0].userName;
-      ApiUtils.blockNumber = userResponse.result[0].block!;
+      ApiUtils.username = userResponse.result[0].userName!;
+      ApiUtils.blockNumber = userResponse.result[0].block!.toString();
       ApiUtils.firstName = userResponse.result[0].firstName!;
       ApiUtils.lastName = userResponse.result[0].lastName!;
       ApiUtils.roleId = userResponse.result[0].roleId!.roleId;
@@ -154,7 +154,7 @@ class ApiCalls {
     return null;
   }
 
-  Future<String?> createIssue(
+  Future<String?> createAnIssue(
     BuildContext context,
     String roomNumber,
     String blockNumber,
