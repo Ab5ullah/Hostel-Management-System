@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hostel_management_system/api_services/api_utils.dart';
+import 'package:hostel_management_system/features/student/screens/change_room_req.dart';
 import 'package:hostel_management_system/models/room_availability_model.dart';
 import 'package:provider/provider.dart';
 
@@ -177,7 +178,7 @@ class RoomCard extends StatelessWidget {
                   Container(
                     height: 30.h,
                     padding: const EdgeInsets.only(
-                        left: 5, right: 5, top: 5, bottom: 5),
+                        left: 5, right: 5, top: 5, bottom: 3),
                     decoration: ShapeDecoration(
                       color: room.roomCurrentCapacity == 5
                           ? Colors.amber
@@ -204,7 +205,15 @@ class RoomCard extends StatelessWidget {
                             ),
                           )
                         : InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ChangeRoomScreen(),
+                                ),
+                              );
+                            },
                             child: Text(
                               'Available',
                               textAlign: TextAlign.center,

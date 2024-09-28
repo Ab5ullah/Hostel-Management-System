@@ -1,9 +1,13 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:provider/provider.dart';
+import '../../../api_services/api_provider.dart';
+import '../../../api_services/api_utils.dart';
 import '../../../common/app_bar.dart';
 import '../../../common/constant.dart';
 import '../../../common/spacing.dart';
+import '../../../models/room_change_model.dart';
 import '../../../theme/text_theme.dart';
 
 class RoomChangeRequestScreen extends StatefulWidget {
@@ -15,22 +19,70 @@ class RoomChangeRequestScreen extends StatefulWidget {
 }
 
 class _RoomChangeRequestScreenState extends State<RoomChangeRequestScreen> {
+  RoomChangeModel? roomChangeModel;
+  Future<void> fetchRoomChangeRequest() async {
+    try {
+      final apiProvider = Provider.of<ApiProvider>(context, listen: false);
+      final requests =
+          await apiProvider.getResponse(ApiUtils.studentRoomChangeReq);
+
+      if (requests.statusCode == 200) {
+        final Map<String, dynamic> issue = json.decode(requests.body);
+        print(requests.body);
+
+        roomChangeModel = RoomChangeModel.fromJson(issue);
+      } else {
+        print('Failed to fetch data');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context, "Room Change Requests"),
-      body: ListView.builder(
-          itemCount: 2,
-          padding: const EdgeInsets.all(10),
-          itemBuilder: (context, index) {
-            return const RequestCard();
-          }),
+      body: ApiUtils.roleId != 1
+          ? const Center(
+              child: Text("you dont have epermission to view this page"),
+            )
+          : FutureBuilder(
+              future: fetchRoomChangeRequest(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  return roomChangeModel == null
+                      ? const Center(
+                          child: Text(
+                            "No Availability",
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ListView.builder(
+                            itemCount: roomChangeModel!.result.length,
+                            padding: const EdgeInsets.all(10),
+                            itemBuilder: (context, index) {
+                              return RequestCard(
+                                requests: roomChangeModel!.result[index],
+                              );
+                            },
+                          ),
+                        );
+                }
+              },
+            ),
     );
   }
 }
 
 class RequestCard extends StatelessWidget {
-  const RequestCard({super.key});
+  final Result requests;
+  const RequestCard({super.key, required this.requests});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +121,7 @@ class RequestCard extends StatelessWidget {
                     ),
                     heightSpacer(10),
                     Text(
-                      "Pankaj Pandayy",
+                      "${requests.studentDetails.firstName} ${requests.studentDetails.lastName}",
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w700,
@@ -83,35 +135,35 @@ class RequestCard extends StatelessWidget {
                   children: [
                     heightSpacer(10),
                     Text(
-                      "Username : Kottla",
+                      "Username : ${requests.studentDetails.userName}",
                       style: TextStyle(
                         fontSize: 14.sp,
                       ),
                     ),
                     heightSpacer(10),
                     Text(
-                      "Current Room: 102",
+                      "Current Block: ${requests.studentDetails.block}",
                       style: TextStyle(
                         fontSize: 14.sp,
                       ),
                     ),
                     heightSpacer(10),
                     Text(
-                      "Current Block: B",
+                      "Current Room: ${requests.studentDetails.roomNumber}",
                       style: TextStyle(
                         fontSize: 14.sp,
                       ),
                     ),
                     heightSpacer(10),
                     Text(
-                      "Email Id: Kottla@gmail.com",
+                      "Email Id: ${requests.studentDetails.emailId}",
                       style: TextStyle(
                         fontSize: 14.sp,
                       ),
                     ),
                     heightSpacer(10),
                     Text(
-                      "Phone Number: +920000000",
+                      "Phone Number: ${requests.studentDetails.phoneNumber}",
                       style: TextStyle(
                         fontSize: 14.sp,
                       ),
@@ -158,7 +210,7 @@ class RequestCard extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Block: A ",
+                                      "Block: ${requests.toChangeBlock}",
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         color: Colors.pink,
@@ -167,7 +219,7 @@ class RequestCard extends StatelessWidget {
                                     ),
                                     widthSpacer(20),
                                     Text(
-                                      "Room No : 102",
+                                      "Room No : ${requests.toChangeRoomNumber}",
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         color: Colors.pink,
@@ -191,7 +243,7 @@ class RequestCard extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  "'Switches not working'",
+                                  "'${requests.changeReason}'",
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w400,

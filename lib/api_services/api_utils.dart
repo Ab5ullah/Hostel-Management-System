@@ -10,6 +10,7 @@ class ApiUtils {
   static String studentIssues = "/maintenance/fetch/issue/OPEN";
   static String staffInfo = "/admin/fetch/allStaff";
   static String studentInfo = "/student/getStudentDetails?studentEmailId=";
+  static String studentRoomChangeReq = "/room/fetch/roomChange/requests";
 
 //user info
   static String email = '';
