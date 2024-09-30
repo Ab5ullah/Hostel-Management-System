@@ -197,9 +197,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     inputHint: "Enter your Phone Number",
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Email is required';
-                      } else if (!emailRegex.hasMatch(value)) {
-                        return 'Email is invalid';
+                        return 'Phone Number is required';
                       }
                       return null;
                     },
